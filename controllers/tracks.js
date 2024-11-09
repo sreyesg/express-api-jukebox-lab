@@ -9,7 +9,7 @@ router.post('/', async(req, res) =>{
         return res.status(201).json(createdTrack)
         
     } catch (error) {
-        console.log(error)
+        res.status(500).json({error: error.message})
     }
 
 })
@@ -22,7 +22,7 @@ router.get('/', async(req, res) => {
         res.status(201).json(foundTracks)
 
     }catch(error){
-        console.log(error)
+        res.status(500).json({error: error.message})
     }
 })
 // show
@@ -32,19 +32,19 @@ router.get('/:trackId', async(req, res) => {
         const foundTrack = await Track.findById(req.params.trackId)
         res.status(200).json(foundTrack)
     } catch (error) {
-        console.log(error)
+        res.status(500).json({error: error.message})
     }
 
 })
 // update
 router.put("/:trackId", async(req, res) => {
     try {
+        const updatedTrack = await Track.findByIdAndUpdate(req.params.trackId,req.body,{new: true})
+        res.status(200).json(updatedTrack)
         
     } catch (error) {
-        console.log(error)
+        res.status(500).json({error: error.message})
     }
-    const updatedTrack = await Track.findByIdAndUpdate(req.params.trackId,req.body,{new: true})
-    res.status(200).json(updatedTrack)
 })
 // Delete
 
@@ -54,7 +54,7 @@ router.delete('/:trackId', async(req, res) => {
         res.status(201).json(deletedTrack)
         
     } catch (error) {
-        console.log(error)
+        res.status(500).json({error: error.message})
     }
 })
 
