@@ -1,18 +1,21 @@
-const dotenv = require('dotenv').config()
+const dotenv = require('dotenv')
+dotenv.config()
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 
 
-mongoose.connect(process.send.MONGODB_URL)
-mongoose.connection.on('Connected', () => {
-    console.log(`connected to mongoDB${mongoose.connection.name}`)
+mongoose.connect(process.env.MONGODB_URI);
+
+mongoose.connection.on('connected', () => {
+    console.log(`connected to mongoDB ${mongoose.connection.name}`)
 })
 
 
 app.use(express.json())
 
 
-app.listen(4000, ()=>{
+
+app.listen(3000, ()=>{
     console.log("the express app is ready!")
 })
